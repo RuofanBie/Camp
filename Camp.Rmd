@@ -1,0 +1,41 @@
+---
+title: "Camp"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Simplify Original Dataset
+```{r, message=FALSE, warning=FALSE}
+setwd("D:/Harvard/2018WinterProject")
+library(tidyverse)
+library(keras)
+library(tensorflow)
+```
+```{r}
+pheno <- read.csv("camp_pheno.csv") %>%
+  select(POSFEV_RZ, HTCM_RZ, WTKG_RZ, BMI_RZ, 
+         WAIST_HIP_S3, SEX, RACE, AGE, AGEON, NCLINIC, TG, POSFEVPP_RZ)
+
+## Analysis of NA
+apply(pheno, 2, function(x){return(sum(is.na(x)))})
+
+## Try to delete all the NAs
+posfev1 <- na.omit(pheno) 
+```
+
+## Try Different Deep Learning Models
+```{r}
+library(keras)
+x <- c(1:15)
+prod_ac <- k_cumprod(x, axis = 1)
+k_eval(prod_ac)
+```
+
+
+
+
+
+
